@@ -1,0 +1,5 @@
+# Show git status indicators in the prompt
+GIT_PS1_SHOWDIRTYSTATE=true;
+
+# Git enabled prompt
+PS1='\u@\h:\w\[\e[0;35m\]$(__git_ps1)\[\e[0m\] \$ ';

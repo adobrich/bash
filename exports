@@ -1,0 +1,24 @@
+# Default editor
+export EDITOR=vim
+
+# Ignore duplicated commands when appending to history
+export HISTCONTROLE=ignoreboth
+
+# Increase (in memory) history size
+export HISTSIZE=4096
+
+# Increase (on disk) history size
+export HISTFILESIZE=8192
+
+# Language and encoding
+export LANG=en_AU.UTF-8
+export LC_ALL=en_AU.UTF-8
+
+# Highlight section titles in man pages
+export LESS_TERMCAP_md=$'\e[32m'
+
+# Don't clear the screen after exiting a manpage
+export MANPAGER='less -X'
+
+# vim: ft=sh ts=4 et sw=4:
+
