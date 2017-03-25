@@ -18,7 +18,7 @@ if ! shopt -oq posix; then
 fi
 
 # Source all dot files
-for file in ~/dotfiles/{path,bash_prompt,exports,aliases,functions}; do
+for file in ~/.{path,bash_prompt,exports,aliases,functions}; do
     # Source only if file is exists, is readable and is a normal file
     [ -r "$file" ] && [ -f "$file" ] && . "$file"
 done
