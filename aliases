@@ -1,16 +1,11 @@
 # List files with type hints
-alias ls='ls -lF'
+alias ls='ls -F --color=auto'
 
 # List all files with type hints
 alias la='ls -laF'
 
 # List only directories
 alias lsd='ls -la | grep --color=never ^d'
-
-# Enable coloured grep output
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 
 # vim: ft=sh ts=4 et sw=4:
 

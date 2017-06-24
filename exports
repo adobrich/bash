@@ -11,8 +11,8 @@ export HISTSIZE=4096
 export HISTFILESIZE=8192
 
 # Language and encoding
-#export LANG=en_AU.UTF-8
-#export LC_ALL=en_AU.UTF-8
+export LANG=en_AU.UTF-8
+export LC_ALL=en_AU.UTF-8
 
 # Highlight section titles in man pages
 export LESS_TERMCAP_md=$'\e[32m'
@@ -22,6 +22,9 @@ export MANPAGER='less -X'
 
 # Always show file extraction command
 export SHOW_FULL_COMMAND='true'
+
+# Enable grep colours
+export GREP_OPTIONS='--color=auto'
 
 # vim: ft=sh ts=4 et sw=4:
 

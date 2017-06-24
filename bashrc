@@ -1,1 +1,4 @@
-[ -n "$PS1" ] && . ~/.bash_profile
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+#[ -n "$PS1" ] && . ~/.bash_profile
