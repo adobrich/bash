@@ -20,5 +20,8 @@ export LESS_TERMCAP_md=$'\e[32m'
 # Don't clear the screen after exiting a manpage
 export MANPAGER='less -X'
 
+# Always show file extraction command
+export SHOW_FULL_COMMAND='true'
+
 # vim: ft=sh ts=4 et sw=4:
 

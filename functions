@@ -1,0 +1,102 @@
+#!/bin/bash
+# ----------------------------------------------------------------------------
+# Compressed file helpers
+# ----------------------------------------------------------------------------
+# Extract any (read: most common) compressed files easily
+extract()
+{
+extract_usage="Usage:\textract [options] <path/to/compressed_file.extension>
+               [destination]\n
+               \textension can be <7z|bz2|deb|gz|lzma|rar|rpm|
+               \btar|tar.bz2|tar.gz|tar.xz|tbz2|tgz|xz|zip>\n
+               \tOptions:\n
+               \t-v, --verbose : show output\n
+               \t-h, --help : display this information"
+
+    # Parse command line options
+    verbose=false
+
+    while true; do
+        case "$1" in
+            -v | --verbose )
+                verbose=true
+                ;;
+            -h | --help )
+                echo -e $extract_usage
+                return 0
+                ;;
+            "" )
+                echo -e $extract_usage
+                return 1
+                ;;
+            * )
+                break
+                ;;
+        esac
+        shift
+    done
+
+    # Make sure we've got a file and a destination to work with
+    if [[ $# -eq 2 ]]; then
+        compressed_file=$1
+        # Strip trailing '/' but preserve '/' and './'
+        destination=$(echo $2 | sed '/.\{3\}/s/\/$//')
+    else
+        compressed_file=$1
+        destination=$(pwd)
+    fi
+
+    # Select appropriate command
+    extract_command=
+    if [[ -f "$compressed_file" ]]; then
+        case $compressed_file in
+            *.7z|*.deb|*.rpm )
+                extract_command="7z x -o"$destination" "$compressed_file""
+                ;;
+            *.bz2 )
+                # TODO add redirect to $destination/${compressed_file%.bz2}
+                extract_command="bunzip2 -v "$compressed_file""
+                ;;
+            *.tar|*.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz )
+                extract_command="tar xvf "$compressed_file" -C "$destination""
+                ;;
+            *.gz )
+                # TODO add redirect to $destination/${compressed_file%.gz}
+                extract_command="gunzip -v "$compressed_file""
+                ;;
+            *.lzma )
+                # TODO add redirect to $destination/${compressed_file%.lzma}
+                extract_command="unlzma -v "$compressed_file""
+                ;;
+            *.rar )
+                extract_command="unrar -x "$compressed_file" "$destination""
+                ;;
+            *.xz )
+                # TODO add redirect to $destination/${compressed_file%.xz}
+                extract_command="unxz -v "$compressed_file""
+                ;;
+            *.zip )
+                extract_command="unzip "$compressed_file" -d "$destination""
+                ;;
+            * )
+                echo "Unknown compressed file type: '${compressed_file#*.}'"
+                return 1
+                ;;
+        esac
+    else
+        echo "File '$compressed_file' not found."
+        return 1
+    fi
+
+    # Perform extraction
+    if [[ "$verbose" == true ]]; then
+        $extract_command
+    else
+        $extract_command > /dev/null 2>&1
+    fi
+
+    # Should we display full commands? See exports
+    if [[ $SHOW_FULL_COMMAND == true ]]; then
+        echo -e "Completed action: \e[0;33m$extract_command\e[0m"
+    fi
+}
