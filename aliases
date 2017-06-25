@@ -7,5 +7,8 @@ alias la='ls -laF'
 # List only directories
 alias lsd='ls -la | grep --color=never ^d'
 
+# Colour grep
+alias grep='grep --color=auto'
+
 # vim: ft=sh ts=4 et sw=4:
 

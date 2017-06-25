@@ -23,8 +23,5 @@ export MANPAGER='less -X'
 # Always show file extraction command
 export SHOW_FULL_COMMAND='true'
 
-# Enable grep colours
-export GREP_OPTIONS='--color=auto'
-
 # vim: ft=sh ts=4 et sw=4:
 
