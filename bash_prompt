@@ -1,5 +1,10 @@
 # Show git status indicators in the prompt
-. /usr/share/git/completion/git-prompt.sh
+if [ -e /usr/share/git/completion/git-prompt.sh ]; then
+    . /usr/share/git/completion/git-prompt.sh
+elif [ -e /etc/bash_completion.d/git-prompt ]; then
+    . /etc/bash_completion.d/git-prompt
+fi
+
 GIT_PS1_SHOWDIRTYSTATE=true
 
 # Git enabled prompt
