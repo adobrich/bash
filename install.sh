@@ -29,12 +29,10 @@ function process_bash_configs {
     echo -e "$HEADER Processing 'bash configs' $NORMAL"
     config_files=(aliases bash_profile bash_prompt bashrc exports functions inputrc path)
     for file in ${config_files[@]}; do
-        if [ -h $HOME/.${file} ] || [ ! -e $HOME/.${file} ]; then
-    	    create_symlink $SOURCE_DIR/${file} $HOME .${file}
-        else
+        if [ ! -h $HOME/.${file} ] && [ -e $HOME/.${file} ]; then
     	    backup_file $HOME .${file}
-    	    create_symlink $SOURCE_DIR/${file} $HOME .${file}
         fi
+    	create_symlink $SOURCE_DIR/${file} $HOME .${file}
         # Source newly created files
         if [ ${file} == inputrc ]; then
             continue
@@ -48,19 +46,17 @@ function process_bash_configs {
 function process_nvim_configs {
     echo -e "$HEADER Processing 'nvim configs' $NORMAL"
     nvim_config_path="$HOME/.config/nvim"
-    if [ ! -e nvim_config_path ]; then
+    if [ ! -d $nvim_config_path ]; then
         create_directory $nvim_config_path
     fi
 
     # Array since I may break my vim file up into modules at some point
     config_files=(init.vim)
     for file in ${config_files[@]}; do
-        if [ -h $nvim_config_path/${file} ] || [ ! -e $nvim_config_path/${file} ]; then
-    	    create_symlink $SOURCE_DIR/config/nvim/${file} $nvim_config_path ${file}
-        else
+        if [ ! -h $nvim_config_path/${file} ] && [ -e $nvim_config_path/${file} ]; then
     	    backup_file $nvim_config_path ${file}
-    	    create_symlink $SOURCE_DIR/config/nvim/${file} $nvim_config_path ${file}
         fi
+        create_symlink $SOURCE_DIR/config/nvim/${file} $nvim_config_path ${file}
     done
     unset config_files
 
