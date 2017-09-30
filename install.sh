@@ -10,19 +10,19 @@ SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Create symlink: $1 = source file, $2 = link path, $3 = link name
 function create_symlink {
     echo -e "  $OK -> $NORMAL Creating symlink for $3"
-    echo ln -sf $1 $2/$3
+    ln -sf $1 $2/$3
 }
 
 # Create path: $1 = full path
 function create_directory {
-    echo mkdir -p $1
+    mkdir -p $1
 }
 
 # Backup file: $1 = path, $2 = filename
 function backup_file {
     backup_name="$2_$(date +%d-%m-%y_%H%M%S).bak"
     echo -e "  $INFO -> $NORMAL Backing up $2 as '$backup_name'"
-    echo mv $1/$2 $1/$backup_name
+    mv $1/$2 $1/$backup_name
 }
 
 function process_bash_configs {
@@ -74,7 +74,7 @@ function install_dein {
     if [ ! -e $1/$repo_extension ]; then
     echo -e "$HEADER Installing 'dein - neovim plugin manager' $NORMAL"
 	create_directory $1
-        echo git clone https://github.com/Shougo/dein.vim "$1/$repo_extension"
+        git clone https://github.com/Shougo/dein.vim "$1/$repo_extension"
     fi
 }
 
