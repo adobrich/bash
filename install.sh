@@ -8,24 +8,24 @@ OK="\e[0;32m"
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Create symlink: $1 = source file, $2 = link path, $3 = link name
-function create_symlink {
+create_symlink() {
     echo -e " $OK -> $NORMAL Creating symlink for $3"
     ln -sf $1 $2/$3
 }
 
 # Create path: $1 = full path
-function create_directory {
+create_directory() {
     mkdir -p $1
 }
 
 # Backup file: $1 = path, $2 = filename
-function backup_file {
+backup_file() {
     backup_name="$2_$(date +%d-%m-%y_%H%M%S).bak"
     echo -e " $INFO -> $NORMAL Backing up $2 as '$backup_name'"
     mv $1/$2 $1/$backup_name
 }
 
-function process_bash_configs {
+process_bash_configs() {
     echo -e "$HEADER Processing 'bash configs' $NORMAL"
     config_files=(aliases bash_profile bash_prompt bashrc exports functions inputrc path)
     for file in ${config_files[@]}; do
@@ -43,8 +43,8 @@ function process_bash_configs {
     unset config_files
 }
 
-function process_nvim_configs {
-    echo -e "$HEADER Processing 'nvim configs' $NORMAL"
+process_nvim_configs() {
+    echo -e "$HEADER Processing 'neovim configs' $NORMAL"
     nvim_config_path="$HOME/.config/nvim"
     if [ ! -d $nvim_config_path ]; then
         create_directory $nvim_config_path
@@ -63,7 +63,7 @@ function process_nvim_configs {
 }
 
 # Install dein (neovim plugin manager): $1 install path
-function install_dein {
+install_dein() {
     type git > /dev/null 2>&1 || {
         echo -e "$ERROR Error: git must be installed before installing dein $NORMAL"
 	    exit 1
