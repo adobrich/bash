@@ -33,6 +33,7 @@ function process_bash_configs {
     	    create_symlink $SOURCE_DIR/${file} $HOME .${file}
         else
     	    backup_file $HOME .${file}
+    	    create_symlink $SOURCE_DIR/${file} $HOME .${file}
         fi
         # Source newly created files
         if [ ${file} == inputrc ]; then
@@ -58,6 +59,7 @@ function process_nvim_configs {
     	    create_symlink $SOURCE_DIR/config/nvim/${file} $nvim_config_path ${file}
         else
     	    backup_file $nvim_config_path ${file}
+    	    create_symlink $SOURCE_DIR/config/nvim/${file} $nvim_config_path ${file}
         fi
     done
     unset config_files
