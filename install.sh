@@ -68,7 +68,7 @@ function process_nvim_configs {
 function install_dein {
     type git > /dev/null 2>&1 || {
         echo -e "$ERROR Error: git must be installed before installing dein $NORMAL"
-	exit 1
+	    exit 1
     }
     repo_extension="dein/repos/github.com/Shougo/dein.vim"
     if [ ! -e $1/$repo_extension ]; then
