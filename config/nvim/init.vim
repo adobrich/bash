@@ -1,5 +1,5 @@
 set nocompatible
-set runtimepath+=/home/dobbs/.nvim/dein/repos/github.com/Shougo/dein.vim       
+set runtimepath+=$HOME/.nvim/dein/repos/github.com/Shougo/dein.vim       
 
 if dein#load_state('~/.nvim/dein')
   call dein#begin('~/.nvim/dein')
