@@ -5,6 +5,7 @@ ERROR="\e[0;31m"
 INFO="\e[0;33m"
 HEADER="\e[0;34m"
 OK="\e[0;32m"
+
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # Create symlink: $1 = source file, $2 = link path, $3 = link name
@@ -30,9 +31,9 @@ process_bash_configs() {
     config_files=(aliases bash_profile bash_prompt bashrc exports functions inputrc path)
     for file in ${config_files[@]}; do
         if [ ! -h $HOME/.${file} ] && [ -e $HOME/.${file} ]; then
-    	    backup_file $HOME .${file}
+            backup_file $HOME .${file}
         fi
-    	create_symlink $SOURCE_DIR/${file} $HOME .${file}
+        create_symlink $SOURCE_DIR/${file} $HOME .${file}
         # Source newly created files
         if [ ${file} == inputrc ]; then
             continue
@@ -54,24 +55,23 @@ process_nvim_configs() {
     config_files=(init.vim)
     for file in ${config_files[@]}; do
         if [ ! -h $nvim_config_path/${file} ] && [ -e $nvim_config_path/${file} ]; then
-    	    backup_file $nvim_config_path ${file}
+            backup_file $nvim_config_path ${file}
         fi
         create_symlink $SOURCE_DIR/config/nvim/${file} $nvim_config_path ${file}
     done
     unset config_files
-
 }
 
 # Install dein (neovim plugin manager): $1 install path
 install_dein() {
     type git > /dev/null 2>&1 || {
         echo -e "$ERROR Error: git must be installed before installing dein $NORMAL"
-	    exit 1
+        exit 1
     }
     repo_extension="dein/repos/github.com/Shougo/dein.vim"
     if [ ! -e $1/$repo_extension ]; then
         echo -e "$HEADER Installing 'dein - neovim plugin manager' $NORMAL"
-	    create_directory $1
+        create_directory $1
         git clone https://github.com/Shougo/dein.vim "$1/$repo_extension"
         echo -e "$INFO Open nvim and run 'call dein#install()' $NORMAL"
     fi

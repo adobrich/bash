@@ -1,59 +1,87 @@
+" Modeline {
+" vim: et sw=2 sts=-1 foldmethod=marker foldmarker={,}
+" }
+
 set nocompatible
-set runtimepath+=$HOME/.nvim/dein/repos/github.com/Shougo/dein.vim       
+
+" Dein - Plugins {
+set runtimepath+=$HOME/.nvim/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('~/.nvim/dein')
   call dein#begin('~/.nvim/dein')
-
+  call dein#add('airblade/vim-gitgutter')
+  call dein#add('carlitux/deoplete-ternjs')
+  call dein#add('elixir-lang/vim-elixir')
+"  call dein#add('ervandew/supertab')
+  call dein#add('jiangmiao/auto-pairs')
+  call dein#add('honza/vim-snippets')
+  call dein#add('nathanaelkane/vim-indent-guides')
+  call dein#add('neomake/neomake')
+  call dein#add('ntpeters/vim-better-whitespace')
+  call dein#add('othree/jspc.vim')
+  call dein#add('owickstrom/vim-colors-paramount')
   call dein#add('Shougo/dein.vim')
   call dein#add('Shougo/deoplete.nvim')
-  call dein#add('zchee/deoplete-clang')
-  call dein#add('carlitux/deoplete-ternjs')
   call dein#add('Shougo/neoinclude.vim')
-  call dein#add('SirVer/ultisnips')
-  call dein#add('honza/vim-snippets')
-  call dein#add('othree/jspc.vim')
-  call dein#add('ervandew/supertab')
-  call dein#add('fxn/vim-monochrome')
-  call dein#add('owickstrom/vim-colors-paramount')
-  call dein#add('beigebrucewayne/skull-vim')
-  call dein#add('neomake/neomake')
-  call dein#add('airblade/vim-gitgutter')
-
+  call dein#add('Shougo/neosnippet.vim')
+  call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('zchee/deoplete-clang')
   call dein#end()
   call dein#save_state()
 endif
+" }
 
+" General {
 filetype plugin indent on
 syntax enable
-let &colorcolumn="81,".join(range(121,999),",")
 
+set clipboard+=unnamedplus
+set completeopt-=preview
+set expandtab
+set ignorecase
+set lazyredraw
+set modeline
+set noshowmode
+set numberwidth=2
+set scrolloff=5
+set shiftwidth=4
+set showmatch
+set smartcase
+set softtabstop=-1
+set splitbelow
+set splitright
+set textwidth=79
+set wildignore+=tags
+set wildmenu
+" }
+
+" Interface {
+colorscheme paramount
+set background=dark
+set ruler
 set number
 set relativenumber
-"colorscheme monochrome
-colorscheme paramount
-"colorscheme skull
-set background=dark
+set cmdheight=2
+let &colorcolumn="81,".join(range(121,999),",")
+" }
 
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
+" Plugin settings {
 let g:gitgutter_enabled = 1
-set completeopt=longest,menuone,preview
-let g:SuperTabClosePreviewOnPopupClose = 1
+
 " Use deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_smart_case = 1
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
-    \ 'tern#Complete',
-    \ 'jspc#omni'
+  \ 'tern#Complete',
+  \ 'jspc#omni'
 \]
 let g:neomake_cpp_enabled_makers = ['clang']
 let g:neomake_cpp_clang_args = {
-    \ 'exe': 'clang++',
-    \ 'args': ['-Wall', '-Wextra', '-Weverything', '-pedantic', 
-    \ '-Wno-unused-parameter', '-std=c++y', '-DNDEBUG'],
-    \}
+  \ 'exe': 'clang++',
+  \ 'args': ['-Wall', '-Wextra', '-Weverything', '-pedantic',
+  \ '-Wno-unused-parameter', '-std=c++y', '-DNDEBUG'],
+  \}
 call neomake#configure#automake('w')
 let g:neomake_open_list = 2
 
@@ -64,6 +92,16 @@ let g:deoplete#sources#clang#clang_header = '/usr/lib/clang'
 " Javascript completion
 let g:deoplete#sources#javascript = ['file', 'ultisnips', 'ternjs']
 
-autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-let g:UltiSnipsExpandTrigger="<C-j>"
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+call dein#add('Shougo/neosnippet.vim')
+
+imap <expr><TAB> pumvisible() ? "\<C-n>" : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>")
+imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
+imap <expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>\<Plug>AutoPairsReturn"
+"imap <expr><TAB> pumvisible()? "\<C-n>" : "\<tab>"
+
+" Indent guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+" }
