@@ -12,19 +12,19 @@ if dein#load_state('~/.nvim/dein')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('carlitux/deoplete-ternjs')
   call dein#add('elixir-lang/vim-elixir')
-"  call dein#add('ervandew/supertab')
-  call dein#add('jiangmiao/auto-pairs')
   call dein#add('honza/vim-snippets')
+  call dein#add('jiangmiao/auto-pairs')
   call dein#add('nathanaelkane/vim-indent-guides')
   call dein#add('neomake/neomake')
   call dein#add('ntpeters/vim-better-whitespace')
   call dein#add('othree/jspc.vim')
   call dein#add('owickstrom/vim-colors-paramount')
+  call dein#add('scrooloose/nerdcommenter')
   call dein#add('Shougo/dein.vim')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('Shougo/neoinclude.vim')
-  call dein#add('Shougo/neosnippet.vim')
   call dein#add('Shougo/neosnippet-snippets')
+  call dein#add('Shougo/neosnippet.vim')
   call dein#add('zchee/deoplete-clang')
   call dein#end()
   call dein#save_state()
@@ -53,6 +53,7 @@ set splitright
 set textwidth=79
 set wildignore+=tags
 set wildmenu
+set wildignore=*.o,*.obj,*~
 " }
 
 " Interface {
@@ -62,7 +63,14 @@ set ruler
 set number
 set relativenumber
 set cmdheight=2
+set foldmethod=indent
+set foldnestmax=3
 let &colorcolumn="81,".join(range(121,999),",")
+" }
+
+" Keybinding {
+nmap <space> <Leader>
+vmap <space> <Leader>
 " }
 
 " Plugin settings {
