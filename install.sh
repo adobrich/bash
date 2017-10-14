@@ -14,11 +14,6 @@ create_symlink() {
     ln -sf $1 $2/$3
 }
 
-# Create path: $1 = full path
-create_directory() {
-    mkdir -p $1
-}
-
 # Backup file: $1 = path, $2 = filename
 backup_file() {
     backup_name="$2_$(date +%d-%m-%y_%H%M%S).bak"
@@ -48,7 +43,7 @@ process_nvim_configs() {
     echo -e "$HEADER Processing 'neovim configs' $NORMAL"
     nvim_config_path="$HOME/.config/nvim"
     if [ ! -d $nvim_config_path ]; then
-        create_directory $nvim_config_path
+        mkdir -p $nvim_config_path
     fi
 
     # Array since I may break my vim file up into modules at some point
@@ -71,7 +66,7 @@ install_dein() {
     repo_extension="dein/repos/github.com/Shougo/dein.vim"
     if [ ! -e $1/$repo_extension ]; then
         echo -e "$HEADER Installing 'dein - neovim plugin manager' $NORMAL"
-        create_directory $1
+        mkdir -p $1
         git clone https://github.com/Shougo/dein.vim "$1/$repo_extension"
         echo -e "$INFO Open nvim and run 'call dein#install()' $NORMAL"
     fi
