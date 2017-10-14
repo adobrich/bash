@@ -11,7 +11,7 @@ if dein#load_state('~/.nvim/dein')
   call dein#begin('~/.nvim/dein')
   call dein#add('airblade/vim-gitgutter')
   call dein#add('carlitux/deoplete-ternjs')
-  call dein#add('elixir-lang/vim-elixir')
+  call dein#add('elixir-editors/vim-elixir')
   call dein#add('honza/vim-snippets')
   call dein#add('jiangmiao/auto-pairs')
   call dein#add('nathanaelkane/vim-indent-guides')
@@ -25,6 +25,8 @@ if dein#load_state('~/.nvim/dein')
   call dein#add('Shougo/neoinclude.vim')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('Shougo/neosnippet.vim')
+  call dein#add('tpope/vim-surround')
+  call dein#add('Valloric/MatchTagAlways')
   call dein#add('zchee/deoplete-clang')
   call dein#end()
   call dein#save_state()
@@ -48,12 +50,13 @@ set shiftwidth=4
 set showmatch
 set smartcase
 set softtabstop=-1
+set spell spelllang=en_au
 set splitbelow
 set splitright
 set textwidth=79
+set wildignore=*.o,*.obj,*~
 set wildignore+=tags
 set wildmenu
-set wildignore=*.o,*.obj,*~
 " }
 
 " Interface {
@@ -65,12 +68,15 @@ set relativenumber
 set cmdheight=2
 set foldmethod=indent
 set foldnestmax=3
+set foldlevel=0
 let &colorcolumn="81,".join(range(121,999),",")
 " }
 
-" Keybinding {
+" Key bindings {
 nmap <space> <Leader>
 vmap <space> <Leader>
+
+nmap <silent> <leader>s :set spell!<CR>
 " }
 
 " Plugin settings {
@@ -112,4 +118,9 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+" }
+
+" Force Syntax {
+au BufReadPost *.eex set syntax=html
+au BufReadPost *.eex setlocal omnifunc=htmlcomplete#CompleteTags
 " }
