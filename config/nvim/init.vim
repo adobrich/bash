@@ -20,11 +20,13 @@ if dein#load_state('~/.nvim/dein')
   call dein#add('othree/jspc.vim')
   call dein#add('owickstrom/vim-colors-paramount')
   call dein#add('scrooloose/nerdcommenter')
+  call dein#add('scrooloose/nerdtree')
   call dein#add('Shougo/dein.vim')
   call dein#add('Shougo/deoplete.nvim')
   call dein#add('Shougo/neoinclude.vim')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('Shougo/neosnippet.vim')
+  call dein#add('slashmili/alchemist.vim')
   call dein#add('tpope/vim-surround')
   call dein#add('Valloric/MatchTagAlways')
   call dein#add('zchee/deoplete-clang')
@@ -85,6 +87,9 @@ let g:gitgutter_enabled = 1
 " Use deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
+call deoplete#custom#set('_', 'sorters', ['sorter_word'])
+call deoplete#custom#set('neosnippet', 'rank', 9999)
+
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.javascript = [
   \ 'tern#Complete',
@@ -118,6 +123,10 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+" }
+
+" NERDTree {
+map <leader>e :NERDTreeToggle<CR>
 " }
 
 " Force Syntax {
