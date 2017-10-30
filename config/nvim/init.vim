@@ -71,7 +71,7 @@ set cmdheight=2
 set foldmethod=indent
 set foldnestmax=3
 set foldlevel=0
-let &colorcolumn="81,".join(range(121,999),",")
+let &colorcolumn="81,121"
 " }
 
 " Key bindings {
