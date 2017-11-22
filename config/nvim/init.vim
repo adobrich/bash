@@ -21,6 +21,7 @@ if dein#load_state('~/.nvim/dein')
   call dein#add('othree/jspc.vim')
   call dein#add('owickstrom/vim-colors-paramount')
   call dein#add('pbogut/deoplete-elm')
+  call dein#add('mattn/emmet-vim')
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('scrooloose/nerdtree')
   call dein#add('Shougo/dein.vim')
@@ -132,7 +133,9 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 map <leader>e :NERDTreeToggle<CR>
 " }
 
-" Force Syntax {
-au BufReadPost *.eex set syntax=html
-au BufReadPost *.eex setlocal omnifunc=htmlcomplete#CompleteTags
+" File type settings {
+au BufNewFile,BufRead *.html setlocal shiftwidth=2
+
+au BufNewFile,BufRead *.css setlocal shiftwidth=2
+
 " }
