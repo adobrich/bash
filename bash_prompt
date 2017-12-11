@@ -8,8 +8,10 @@ fi
 GIT_PS1_SHOWDIRTYSTATE=true
 
 # Git enabled prompt
-PS1='[\[\e[38;5;153m\]\W\[\e[0m\]]\[\e[38;5;212m\]$(__git_ps1)\[\e[0m\] \$ '
-
-# TODO: conditional prompts.
-#PS1='\[\e[38;5;196m\]ROOT\[\e[0m\]:[\[\e[38;5;153m\]\W\[\e[38;5;212m\]$(__git_ps1)\[\e[0m\] \$ '
-#PS1='\[\e[38;5;220m\]SSH:\[\e[0m\][\[\e[38;5;188m\]\u@\h:\[\e[38;5;153m\]\W\[\e[0m\]]\[\e[38;5;212m\]$(__git_ps1)\[\e[0m\] \$ '
+if [ $UID -eq "1000" ]; then
+    PS1='[\[\e[38;5;153m\]\W\[\e[0m\]]\[\e[38;5;212m\]$(__git_ps1)\[\e[0m\] \$ '
+elif [ $UID -eq "0" ]; then
+    PS1='\[\e[38;5;196m\]ROOT\[\e[0m\]:[\[\e[38;5;153m\]\W\[\e[0m]\]\[\e[38;5;212m\]$(__git_ps1)\[\e[0m\] \$ '
+elif [ $HOSTNAME -ne "nighthawk" ]; then
+    PS1='\[\e[38;5;220m\]SSH:\[\e[0m\][\[\e[38;5;188m\]\u@\h:\[\e[38;5;153m\]\W\[\e[0m\]]\[\e[38;5;212m\]$(__git_ps1)\[\e[0m\] \$ '
+fi
