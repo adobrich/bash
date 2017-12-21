@@ -21,6 +21,21 @@ backup_file() {
     mv $1/$2 $1/$backup_name
 }
 
+setup_local_folders() {
+    echo -e "$HEADER Setting up local 'bin' and 'scripts' folders $NORMAL"
+    if [ ! -d $HOME/bin ]; then
+        mkdir $HOME/bin
+    fi
+    create_symlink `which nvim` $HOME/bin vim
+
+    if [ ! -d $HOME/scripts ]; then
+        mkdir $HOME/scripts
+    fi
+    echo -e " $OK -> $NORMAL Downloaded 'git-prompt.sh' to scripts folder"
+    wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh \
+        --output-document=$HOME/scripts/git-prompt.sh -q
+}
+
 process_bash_configs() {
     echo -e "$HEADER Processing 'bash configs' $NORMAL"
     config_files=(aliases bash_profile bash_prompt bashrc exports functions inputrc path)
@@ -72,6 +87,7 @@ install_dein() {
     fi
 }
 
+setup_local_folder
 process_bash_configs
 process_nvim_configs
 install_dein "$HOME/.nvim"
