@@ -87,7 +87,7 @@ install_dein() {
     fi
 }
 
-setup_local_folder
+setup_local_folders
 process_bash_configs
 process_nvim_configs
 install_dein "$HOME/.nvim"

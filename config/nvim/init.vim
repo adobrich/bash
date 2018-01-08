@@ -64,6 +64,7 @@ set textwidth=79
 set wildignore=*.o,*.obj,*~
 set wildignore+=tags
 set wildmenu
+set wildmode=longest:list,full
 " }
 
 " Interface {
