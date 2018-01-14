@@ -13,16 +13,16 @@ if dein#load_state('~/.nvim/dein')
   call dein#add('carlitux/deoplete-ternjs')
   call dein#add('eagletmt/neco-ghc')
   call dein#add('elixir-editors/vim-elixir')
+  call dein#add('ElmCast/elm-vim')
   call dein#add('honza/vim-snippets')
   call dein#add('jiangmiao/auto-pairs')
+  call dein#add('mattn/emmet-vim')
   call dein#add('nathanaelkane/vim-indent-guides')
-  "call dein#add('neomake/neomake')
+  call dein#add('neomake/neomake')
   call dein#add('ntpeters/vim-better-whitespace')
   call dein#add('othree/jspc.vim')
   call dein#add('owickstrom/vim-colors-paramount')
   call dein#add('pbogut/deoplete-elm')
-  call dein#add('ElmCast/elm-vim')
-  call dein#add('mattn/emmet-vim')
   call dein#add('scrooloose/nerdcommenter')
   call dein#add('scrooloose/nerdtree')
   call dein#add('Shougo/dein.vim')
@@ -31,10 +31,10 @@ if dein#load_state('~/.nvim/dein')
   call dein#add('Shougo/neosnippet-snippets')
   call dein#add('Shougo/neosnippet.vim')
   call dein#add('slashmili/alchemist.vim')
+  call dein#add('tikhomirov/vim-glsl')
   call dein#add('tpope/vim-surround')
   call dein#add('Valloric/MatchTagAlways')
-  "call dein#add('zchee/deoplete-clang')
-  call dein#add('tweekmonster/deoplete-clang2')
+  call dein#add('zchee/deoplete-clang')
   call dein#add('zchee/deoplete-jedi')
   call dein#end()
   call dein#save_state()
@@ -65,7 +65,9 @@ set textwidth=79
 set wildignore=*.o,*.obj,*~
 set wildignore+=tags
 set wildmenu
-set wildmode=longest:list,full
+"set wildmode=longest:list,full
+set completeopt=menuone,preview
+
 " }
 
 " Interface {
@@ -104,12 +106,12 @@ let g:deoplete#omni#functions.javascript = [
 \]
 "let g:neomake_cpp_enabled_makers = ['clang']
 "let g:neomake_cpp_clang_args = {
-"  \ 'exe': 'clang++',
-"  \ 'args': ['-Wall', '-Wextra', '-Weverything', '-pedantic',
-"  \ '-Wno-unused-parameter', '-std=c++y', '-DNDEBUG'],
-"  \}
-"call neomake#configure#automake('w')
-"let g:neomake_open_list = 2
+  "\ 'exe': 'clang++',
+  "\ 'args': ['-Wall', '-Wextra', '-Weverything', '-pedantic',
+  "\ '-Wno-unused-parameter', '-std=c++y', '-DNDEBUG'],
+  "\}
+call neomake#configure#automake('w')
+let g:neomake_open_list = 2
 
 " Clang completion
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
