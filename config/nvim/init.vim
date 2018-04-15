@@ -1,150 +1,121 @@
-" Modeline {
-" vim: et sw=2 sts=-1 foldmethod=marker foldmarker={,}
-" }
-
-set nocompatible
-
-" Dein - Plugins {
-set runtimepath+=$HOME/.nvim/dein/repos/github.com/Shougo/dein.vim
-
-if dein#load_state('~/.nvim/dein')
-  call dein#begin('~/.nvim/dein')
-  call dein#add('airblade/vim-gitgutter')
-  call dein#add('carlitux/deoplete-ternjs')
-  call dein#add('eagletmt/neco-ghc')
-  call dein#add('elixir-editors/vim-elixir')
-  call dein#add('ElmCast/elm-vim')
-  call dein#add('honza/vim-snippets')
-  call dein#add('jiangmiao/auto-pairs')
-  call dein#add('mattn/emmet-vim')
-  call dein#add('nathanaelkane/vim-indent-guides')
-  call dein#add('neomake/neomake')
-  call dein#add('ntpeters/vim-better-whitespace')
-  call dein#add('othree/jspc.vim')
-  call dein#add('owickstrom/vim-colors-paramount')
-  call dein#add('pbogut/deoplete-elm')
-  call dein#add('scrooloose/nerdcommenter')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('Shougo/dein.vim')
-  call dein#add('Shougo/deoplete.nvim')
-  call dein#add('Shougo/echodoc.vim')
-  call dein#add('Shougo/neoinclude.vim')
-  call dein#add('Shougo/neosnippet-snippets')
-  call dein#add('Shougo/neosnippet.vim')
-  call dein#add('slashmili/alchemist.vim')
-  call dein#add('tikhomirov/vim-glsl')
-  call dein#add('tpope/vim-surround')
-  call dein#add('Valloric/MatchTagAlways')
-  call dein#add('tweekmonster/deoplete-clang2')
-  "call dein#add('zchee/deoplete-clang')
-  call dein#add('zchee/deoplete-jedi')
-  call dein#end()
-  call dein#save_state()
-endif
+" Vim Plug {
+call plug#begin('~/.local/share/nvim/plugged')
+  " Deoplete - completion manager {
+  " Possibly switch to neovim-completion-manager at some point?
+  Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+    let g:deoplete#auto_complete_delay = 0
+    let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_smart_case = 1
+    let g:deoplete#omni_patterns = {}
+    let g:deoplete#auto_completion_start_length = 1
+    let g:deoplete#file#enable_buffer_path = 1
+    " Language sources
+    let g:deoplete#sources = {}
+    let g:deoplete#sources._ = []
+    let g:deoplete#sources#clang#executable = '/usr/bin/clang'
+    let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
+    let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang/5.0.1/include'
+    let g:deoplete#sources#clang#autofill_neomake = 1
+    let g:deoplete#sources#clang#std = {'cpp': 'c++1z'}
+    " Use shift to traverse list
+    imap <expr><tab>
+          \ pumvisible() ? "\<c-n>" :
+          \ neosnippet#expandable_or_jumpable() ?
+          \ "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+    imap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+    imap <expr><cr>
+          \ pumvisible() ? deoplete#mappings#close_popup() :
+          \ "\<cr>\<Plug>AutoPairsReturn"
+  " }
+  " Deoplete language sources {
+  Plug 'tweekmonster/deoplete-clang2'
+  Plug 'pbogut/deoplete-elm'
+  Plug 'zchee/deoplete-jedi'
+  Plug 'sebastianmarkow/deoplete-rust'
+  Plug 'zchee/deoplete-go'
+  " }
+  " Neosnippets - Expandable snippets
+  Plug 'Shougo/neosnippet.vim'
+  Plug 'Shougo/neosnippet-snippets'
+    imap <C-k> <Plug>(neosnippet_expand_or_jump)
+    smap <C-k> <Plug>(neosnippet_expand_or_jump)
+    xmap <C-k> <Plug>(neosnippet_expand_target)
+    let g:neosnippet#snippets_directory = '~/.local/share/nvim/plugged/vim-snippets'
+  " }
+  " Vim-snippets - extra snippets
+  Plug 'honza/vim-snippets'
+  " }
+  " Auto-pairs - Auto insert pairs {
+  Plug 'jiangmiao/auto-pairs'
+  " }
+  " Alchemist - IEx and elixir completion / info in nvim {
+  Plug 'slashmili/alchemist.vim'
+  " }
+  " Neomake - Build and check for issues in the background {
+  Plug 'neomake/neomake'
+    let g:neomake_markdown_enabled_makers = []
+    let g:neomake_elixir_enabled_makers = ['mix', 'credo']
+    "let g:neomake_cpp_enabled_makers = ['clang']
+    " Run neomake on save
+    augroup localneomake
+      autocmd! BufWritePost * Neomake
+    augroup END
+  " }
+  " Paramount - Simple colorscheme {
+  Plug 'owickstrom/vim-colors-paramount'
+  " }
+  " Vim Polyglot - Lazy load syntax for current file {
+  Plug 'sheerun/vim-polyglot'
+  " }
+  " FZF - Fuzzy finder {
+  Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+  " }
+  " NERDcommenter - Easy commenting in (almost)any file {
+  Plug 'scrooloose/nerdcommenter'
+  " }
+  " Echodoc - Display function signatures in status {
+  Plug 'Shougo/echodoc.vim'
+    let g:echodoc_enable_at_startup = 1
+  " }
+call plug#end()
 " }
 
 " General {
-filetype plugin indent on
+set foldmethod=marker
+set foldmarker={,}
+set foldlevel=0
 syntax enable
-
-set clipboard+=unnamedplus
-set completeopt-=preview
-set completeopt+=menu,noinsert,noselect
+set tabstop=2
+set softtabstop=2
 set expandtab
-set ignorecase
-set lazyredraw
-set modeline
-set noshowmode
-set numberwidth=2
-set scrolloff=5
-set shiftwidth=4
-set showmatch
-set smartcase
-set softtabstop=-1
-set spell spelllang=en_au
-set splitbelow
-set splitright
-set textwidth=79
-"set wildmenu
-"set wildignore=*.o,*.obj,*~
-"set wildignore+=tags
-"set wildmode=longest:list,full
-
-" }
-
-" Interface {
-colorscheme paramount
-set background=dark
-set ruler
+set shiftwidth=2
+set hidden
 set number
 set relativenumber
+set encoding=utf-8
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set title
+set clipboard=unnamedplus
 set cmdheight=2
-set foldmethod=indent
-set foldnestmax=3
-set foldlevel=0
-let &colorcolumn="81,121"
-highlight Pmenu ctermbg=white ctermfg=black gui=bold
+set spell spelllang=en_au
 " }
 
-" Key bindings {
-nmap <space> <Leader>
-vmap <space> <Leader>
-
-nmap <silent> <leader>s :set spell!<CR>
+" Look and feel {
+colorscheme paramount
+set background=dark
+set cursorline
+set cursorcolumn
 " }
 
-" Plugin settings {
-let g:gitgutter_enabled = 1
-
-" Use deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#executable = '/usr/bin/clang'
-let g:deoplete#sources#autofill_neomake = 1
-let g:deoplete#auto_complete_start_length = 1
-
-" Clang completion
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/clang/5.0.0/include'
-let g:deoplete#auto_complete_delay = 0
-let g:echodoc_enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-"call deoplete#custom#set('_', 'sorters', ['sorter_word'])
-call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy', 'matcher_length'])
-
-"call deoplete#custom#source('_', 'matchers', ['matcher_head'])
-call deoplete#custom#source('neosnippet', 'rank', 9999)
-
-call neomake#configure#automake('w')
-
-call deoplete#complete_common_string()
-"let g:neomake_open_list = 2
-
-
-" Javascript completion
-"let g:deoplete#sources#javascript = ['file', 'ultisnips', 'ternjs']
-
-
-imap <expr><TAB> pumvisible() ? "\<C-n>" : (neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>")
-imap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<S-TAB>"
-imap <expr><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>\<Plug>AutoPairsReturn"
-"imap <expr><TAB> pumvisible()? "\<C-n>" : "\<tab>"
-
-" Indent guides
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=234
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
+" Mappings {
+let g:mapleader=" "
+map <silent><cr> :nohl<cr>
 " }
-
-" NERDTree {
-map <leader>e :NERDTreeToggle<CR>
+"
+" Deoplete filters {
+call deoplete#custom#source('_', 'sorters', ['sorter_word'])
+call deoplete#custom#source('ultisnips', 'rank', 9999)
 " }
-
-" File type settings {
-au BufNewFile,BufRead *.html setlocal shiftwidth=2
-
-au BufNewFile,BufRead *.css setlocal shiftwidth=2
-
-" }
-
-autocmd InsertLeave * if pumvisible() == 0 | pclose | endif
