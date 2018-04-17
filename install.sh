@@ -72,24 +72,20 @@ process_nvim_configs() {
     unset config_files
 }
 
-# Install dein (neovim plugin manager): $1 install path
-install_dein() {
-    type git > /dev/null 2>&1 || {
-        echo -e "$ERROR Error: git must be installed before installing dein $NORMAL"
-        exit 1
-    }
-    repo_extension="dein/repos/github.com/Shougo/dein.vim"
-    if [ ! -e $1/$repo_extension ]; then
-        echo -e "$HEADER Installing 'dein - neovim plugin manager' $NORMAL"
-        mkdir -p $1
-        git clone https://github.com/Shougo/dein.vim "$1/$repo_extension"
-        echo -e "$INFO Open nvim and run 'call dein#install()' $NORMAL"
-    fi
+# Install vim plug (neovim plugin manager)
+install_vim_plug() {
+  type curl > /dev/null 2>&1 || {
+    echo -e "$ERROR Error: curl must be installed before installing vim plug $NORMAL"
+    exit 1
+  }
+  #TODO: change to wget
+  curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 }
 
 setup_local_folders
 process_bash_configs
 process_nvim_configs
-install_dein "$HOME/.nvim"
+install_vim_plug
 
 exit 0
