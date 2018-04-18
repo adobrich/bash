@@ -14,7 +14,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     let g:deoplete#sources._ = []
     let g:deoplete#sources#clang#executable = '/usr/bin/clang'
     let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
-    let g:deoplete#sources#clang#clang_header = '/usr/lib64/clang/5.0.1/include'
+    let g:deoplete#sources#clang#clang_header = expand('/usr/lib64/clang/*/include')
     let g:deoplete#sources#clang#autofill_neomake = 1
     let g:deoplete#sources#clang#std = {'cpp': 'c++1z'}
     " Use shift to traverse list
@@ -34,7 +34,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'sebastianmarkow/deoplete-rust'
   Plug 'zchee/deoplete-go'
   " }
-  " Neosnippets - Expandable snippets
+  " Neosnippets - Expandable snippets {
   Plug 'Shougo/neosnippet.vim'
   Plug 'Shougo/neosnippet-snippets'
     imap <C-k> <Plug>(neosnippet_expand_or_jump)
@@ -42,8 +42,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     xmap <C-k> <Plug>(neosnippet_expand_target)
     let g:neosnippet#snippets_directory = '~/.local/share/nvim/plugged/vim-snippets'
   " }
-  " Vim-snippets - extra snippets
+  " Vim-snippets - extra snippets {
   Plug 'honza/vim-snippets'
+  " }
+  " Vim-better-whitespace - Highlight unwanted spaces {
+  Plug 'ntpeters/vim-better-whitespace'
+    let g:better_whitespace_enabled = 1
   " }
   " Auto-pairs - Auto insert pairs {
   Plug 'jiangmiao/auto-pairs'
@@ -114,7 +118,7 @@ set cursorcolumn
 let g:mapleader=" "
 map <silent><cr> :nohl<cr>
 " }
-"
+
 " Deoplete filters {
 call deoplete#custom#source('_', 'sorters', ['sorter_word'])
 call deoplete#custom#source('ultisnips', 'rank', 9999)
