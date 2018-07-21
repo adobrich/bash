@@ -27,6 +27,7 @@ setup_local_folders() {
         mkdir $HOME/bin
     fi
     create_symlink `which nvim` $HOME/bin vim
+    create_symlink $SOURCE_DIR/bin/start_tmux $HOME start_tmux
 
     if [ ! -d $HOME/scripts ]; then
         mkdir $HOME/scripts
