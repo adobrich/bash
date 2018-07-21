@@ -65,8 +65,16 @@ call plug#begin('~/.local/share/nvim/plugged')
       autocmd! BufWritePost * Neomake
     augroup END
   " }
+  " Vim-Closetag - automatically close tags for (x)HTML files
+  Plug 'alvan/vim-closetag'
+  let g:closetag_filenames = '*.html, *.xhtml, *.eex'
+  " }
   " Paramount - Simple colorscheme {
   Plug 'owickstrom/vim-colors-paramount'
+  " }
+  " Nord - 16 colour colorscheme {
+  Plug 'arcticicestudio/nord-vim'
+  let g:nord_uniform_status_lines = 1
   " }
   " Vim Polyglot - Lazy load syntax for current file {
   Plug 'sheerun/vim-polyglot'
@@ -108,7 +116,7 @@ set spell spelllang=en_au
 " }
 
 " Look and feel {
-colorscheme paramount
+colorscheme nord
 set background=dark
 set cursorline
 set cursorcolumn
@@ -117,6 +125,8 @@ set cursorcolumn
 " Mappings {
 let g:mapleader=" "
 map <silent><cr> :nohl<cr>
+map <silent><leader>e :Explore<cr>
+map <silent><leader>f :FZF<cr>
 " }
 
 " Deoplete filters {

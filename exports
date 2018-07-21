@@ -26,5 +26,8 @@ export SHOW_FULL_COMMAND='true'
 # Set local npm path
 export npm_config_prefix=~/.node_modules
 
+# Enable history for iex (elixir interpreter)
+export ERL_AFLAGS="-kernel shell_history enabled"
+
 # vim: ft=sh ts=4 et sw=4:
 
