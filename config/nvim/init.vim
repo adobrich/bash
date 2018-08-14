@@ -42,6 +42,12 @@ call plug#begin('~/.local/share/nvim/plugged')
     xmap <C-k> <Plug>(neosnippet_expand_target)
     let g:neosnippet#snippets_directory = '~/.local/share/nvim/plugged/vim-snippets'
   " }
+  " Vim-gitgutter - Show git diff info in gutter {
+  Plug 'airblade/vim-gitgutter'
+  " }
+  " Vim-fugitive - git wrapper {
+  Plug 'tpope/vim-fugitive'
+  " }
   " Vim-snippets - extra snippets {
   Plug 'honza/vim-snippets'
   " }
