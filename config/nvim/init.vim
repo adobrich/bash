@@ -10,6 +10,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     let g:deoplete#auto_completion_start_length = 1
     let g:deoplete#file#enable_buffer_path = 1
     " Language sources
+    " C/C++
     let g:deoplete#sources = {}
     let g:deoplete#sources._ = []
     let g:deoplete#sources#clang#executable = '/usr/bin/clang'
@@ -17,6 +18,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     let g:deoplete#sources#clang#clang_header = expand('/usr/lib64/clang/*/include')
     let g:deoplete#sources#clang#autofill_neomake = 1
     let g:deoplete#sources#clang#std = {'cpp': 'c++1z'}
+    " rust
+    let g:deoplete#sources#rust#racer_binary = expand('~/.cargo/bin/racer')
+    let g:deoplete#sources#rust#rust_source_path = expand('~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src')
     " Use shift to traverse list
     imap <expr><tab>
           \ pumvisible() ? "\<c-n>" :
@@ -62,10 +66,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'slashmili/alchemist.vim'
   " }
   " Neomake - Build and check for issues in the background {
-  Plug 'neomake/neomake'
+  Plug 'neomake/neomake', { 'for': ['rust', 'elixir', 'cpp'] }
     let g:neomake_markdown_enabled_makers = []
     let g:neomake_elixir_enabled_makers = ['mix', 'credo']
-    "let g:neomake_cpp_enabled_makers = ['clang']
     " Run neomake on save
     augroup localneomake
       autocmd! BufWritePost * Neomake
