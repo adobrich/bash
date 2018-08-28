@@ -26,3 +26,5 @@ unset file
 
 # vim: ft=sh ts=4 et sw=4:
 
+
+export PATH="$HOME/.cargo/bin:$PATH"
