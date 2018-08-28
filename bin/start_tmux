@@ -3,7 +3,7 @@
 usage="Usage:\tstart_tmux [options]\n
        \tOptions:\n
        \t-d, --directory : set current working directory\n
-       \t-s, --session : set session name"
+       \t-s, --session : set session name (defaults to: dev)"
 
 # Default session name
 session="dev"
