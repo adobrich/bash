@@ -55,6 +55,14 @@ process_bash_configs() {
     unset config_files
 }
 
+process_misc_configs() {
+  echo -e "$HEADER Processing 'tmux config' $NORMAL"
+  if [ ! -h "$HOME/.tmux.conf" ] && [ -e "$HOME/.tmux.conf" ]; then
+      backup_file $HOME .tmux.conf
+  fi
+  create_symlink $SOURCE_DIR/tmux.conf $HOME/ .tmux.conf
+}
+
 process_nvim_configs() {
     echo -e "$HEADER Processing 'neovim configs' $NORMAL"
     nvim_config_path="$HOME/.config/nvim"
@@ -86,6 +94,7 @@ install_vim_plug() {
 
 setup_local_folders
 process_bash_configs
+process_misc_configs
 process_nvim_configs
 install_vim_plug
 
