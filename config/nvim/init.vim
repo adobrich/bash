@@ -1,5 +1,19 @@
 " Vim Plug {
 call plug#begin('~/.local/share/nvim/plugged')
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+  let g:LanguageClient_autoStart = 1
+  let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
+    \ 'python': ['/usr/local/bin/pyls'],
+    \ }
+  noremap <silent> H :call LanguageClient_textDocument_hover()<CR>
+  noremap <silent> Z :call LanguageClient_textDocument_definition()<CR>
+  noremap <silent> R :call LanguageClient_textDocument_rename()<CR>
+  noremap <silent> S :call LanguageClient_textDocument_documentSymbol()<CR>
+
   " Deoplete - completion manager {
   " Possibly switch to neovim-completion-manager at some point?
   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
@@ -20,7 +34,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     let g:deoplete#sources#clang#std = {'cpp': 'c++1z'}
     " rust
     let g:deoplete#sources#rust#racer_binary = expand('~/.cargo/bin/racer')
-    let g:deoplete#sources#rust#rust_source_path = expand('~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src')
+    let g:deoplete#sources#rust#rust_source_path = expand('~/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src')
     " Use shift to traverse list
     imap <expr><tab>
           \ pumvisible() ? "\<c-n>" :
@@ -35,7 +49,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'tweekmonster/deoplete-clang2'
   Plug 'pbogut/deoplete-elm'
   Plug 'zchee/deoplete-jedi'
-  Plug 'sebastianmarkow/deoplete-rust'
+  "Plug 'racer-rust/vim-racer'
+    "let g:racer_cmd = expand('~/.cargo/bin/racer')
+    "let g:racer_experimental_completer = 1
   Plug 'zchee/deoplete-go'
   " }
   " Neosnippets - Expandable snippets {
@@ -59,6 +75,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'ntpeters/vim-better-whitespace'
     let g:better_whitespace_enabled = 1
   " }
+  " Vim-sandwich
+  Plug 'machakann/vim-sandwich'
+  " }
   " Auto-pairs - Auto insert pairs {
   Plug 'jiangmiao/auto-pairs'
   " }
@@ -69,10 +88,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'neomake/neomake', { 'for': ['rust', 'elixir', 'cpp'] }
     let g:neomake_markdown_enabled_makers = []
     let g:neomake_elixir_enabled_makers = ['mix', 'credo']
-    " Run neomake on save
-    augroup localneomake
-      autocmd! BufWritePost * Neomake
-    augroup END
   " }
   " Vim-Closetag - automatically close tags for (x)HTML files
   Plug 'alvan/vim-closetag'
@@ -84,6 +99,9 @@ call plug#begin('~/.local/share/nvim/plugged')
   " Nord - 16 colour colorscheme {
   Plug 'arcticicestudio/nord-vim'
   let g:nord_uniform_status_lines = 1
+  let g:nord_comment_brightness = 20
+  let g:nord_uniform_background = 1
+  let g:nord_cursor_line_number_background = 1
   " }
   " Vim Polyglot - Lazy load syntax for current file {
   Plug 'sheerun/vim-polyglot'
@@ -98,7 +116,15 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'Shougo/echodoc.vim'
     let g:echodoc_enable_at_startup = 1
   " }
+  "Plug 'rust-lang/rust.vim'
+    "let g:autofmt_autosave = 1
 call plug#end()
+" }
+
+" Auto commands {
+" Close preview window after completion as been performed
+"autocmd CompleteDone * pclose
+autocmd BufWritePost *.rs Neomake! cargo
 " }
 
 " General {
@@ -122,6 +148,7 @@ set title
 set clipboard=unnamedplus
 set cmdheight=2
 set spell spelllang=en_au
+set scrolloff=10
 " }
 
 " Look and feel {
