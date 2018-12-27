@@ -8,6 +8,19 @@ OK="\\e[0;32m"
 
 SOURCE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Check for dependencies
+check_for_dependencies() {
+  echo -e "$HEADER Checking dependencies"
+  deps=(wget git nvim)
+  for dep in "${deps[@]}"; do
+    type "$dep" > /dev/null 2>&1 || {
+      echo -e " $ERROR -> $NORMAL Missing dependency '${INFO}${dep}${NORMAL}'. Please install and try again."
+      exit 1
+    }
+  done
+  echo -e " $OK -> $NORMAL All dependencies available"
+}
+
 # Create symlink: $1 = source file, $2 = link path, $3 = link name
 create_symlink() {
     echo -e " $OK -> $NORMAL Creating symlink for $3"
