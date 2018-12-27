@@ -56,7 +56,7 @@ process_bash_configs() {
     config_files=(aliases bash_profile bash_prompt bashrc exports functions inputrc path)
     for file in "${config_files[@]}"; do
         if [ ! -h "$HOME/.${file}" ] && [ -e "$HOME/.${file}" ]; then
-            backup_file "$HOME .${file}"
+            backup_file "$HOME" ".${file}"
         fi
         create_symlink "$SOURCE_DIR/${file}" "$HOME" ".$file"
         # Source newly created files
