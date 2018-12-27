@@ -96,11 +96,13 @@ process_nvim_configs() {
 }
 
 # Install vim plug (neovim plugin manager)
-install_vim_plug() {
+install_vim_plug_and_all_plugins() {
   wget -qNP ~/.local/share/nvim/site/autoload \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
-    && echo -e " $OK -> $NORMAL Downloading vim plug" \
-    || echo -e " $ERROR -> $NORMAL Failed to download '${INFO}plug.vim${NORMAL}'"
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim && {
+    echo -e " $OK -> $NORMAL Downloading vim plug"
+    echo -e " $OK -> $NORMAL Installing all plugins from 'init.vim' (this can take a while)"
+    vim -e +'PlugInstall' +qa > /dev/null 2>&1
+  } || echo -e " $ERROR -> $NORMAL Failed to download '${INFO}plug.vim${NORMAL}'"
 }
 
 check_for_dependencies
@@ -108,6 +110,6 @@ setup_local_folders
 process_bash_configs
 process_misc_configs
 process_nvim_configs
-install_vim_plug
+install_vim_plug_and_all_plugins
 
 exit 0
