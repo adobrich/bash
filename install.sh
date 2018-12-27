@@ -32,9 +32,10 @@ setup_local_folders() {
     if [ ! -d "$HOME/scripts" ]; then
         mkdir "$HOME/scripts"
     fi
-    echo -e " $OK -> $NORMAL Downloaded 'git-prompt.sh' to scripts folder"
     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh \
-        -qO "$HOME/scripts/git-prompt.sh"
+        -qO "$HOME/scripts/git-prompt.sh" \
+        && echo -e " $OK -> $NORMAL Downloaded 'git-prompt.sh' to scripts folder" \
+        || echo -e " $ERROR -> $NORMAL Failed to download '${INFO}git-prompt.sh${NORMAL}'"
 }
 
 process_bash_configs() {
@@ -86,9 +87,10 @@ install_vim_plug() {
   wget -qNP ~/.local/share/nvim/site/autoload \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
     && echo -e " $OK -> $NORMAL Downloading vim plug" \
-    || echo -e " $ERROR -> $NORMAL Failed to download vim plug"
+    || echo -e " $ERROR -> $NORMAL Failed to download '${INFO}plug.vim${NORMAL}'"
 }
 
+check_for_dependencies
 setup_local_folders
 process_bash_configs
 process_misc_configs
