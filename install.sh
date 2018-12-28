@@ -102,6 +102,7 @@ install_vim_plug_and_all_plugins() {
     echo -e " $OK -> $NORMAL Downloading vim plug"
     echo -e " $OK -> $NORMAL Installing all plugins from 'init.vim' (this can take a while)"
     vim -e +'PlugInstall' +qa > /dev/null 2>&1
+    echo -e " $OK -> $NORMAL All plugins installed"
   } || echo -e " $ERROR -> $NORMAL Failed to download '${INFO}plug.vim${NORMAL}'"
 }
 
