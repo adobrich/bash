@@ -47,6 +47,10 @@ setup_local_folders() {
     if [ ! -d "$HOME/scripts" ]; then
         mkdir "$HOME/scripts"
     fi
+
+    create_symlink "$SOURCE_DIR/scripts/extract" "$HOME/scripts" extract
+    . "$HOME/scripts/extract"
+
     wget https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh \
         -qO "$HOME/scripts/git-prompt.sh" \
         && echo -e " $OK -> $NORMAL Downloaded 'git-prompt.sh' to scripts folder" \
@@ -55,7 +59,7 @@ setup_local_folders() {
 
 process_bash_configs() {
     echo -e "$HEADER Processing 'bash configs' $NORMAL"
-    config_files=(aliases bash_profile bash_prompt bashrc exports functions inputrc path)
+    config_files=(aliases bash_profile bash_prompt bashrc exports inputrc path)
     for file in "${config_files[@]}"; do
         backup_file_if_exists "$HOME" ".${file}"
         create_symlink "$SOURCE_DIR/${file}" "$HOME" ".$file"
