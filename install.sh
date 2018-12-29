@@ -30,7 +30,7 @@ create_symlink() {
 # Backup file if it exists: $1 = path, $2 = filename
 backup_if_exists() {
     if [ ! -h "$1/$2" ] && [ -e "$1/$2" ]; then
-      backup_name="$2_$(date +%d-%m-%y_%H%M%S).bak"
+      backup_name="$2_$(date +%x_%H%M%S | sed 's/\//-/g').bak"
       echo -e " $INFO -> $NORMAL Backing up $2 as '$backup_name'"
       mv "$1/$2" "$1/$backup_name"
     fi
