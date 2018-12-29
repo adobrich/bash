@@ -5,13 +5,13 @@
 # Extract any (read: most common) compressed files easily
 extract()
 {
-extract_usage="Usage:\textract [options] <path/to/compressed_file.extension>
-               [destination]\n
-               \textension can be <7z|bz2|deb|gz|lzma|rar|rpm|
-               \btar|tar.bz2|tar.gz|tar.xz|tbz2|tgz|xz|zip>\n
-               \tOptions:\n
-               \t-v, --verbose : show output\n
-               \t-h, --help : display this information"
+extract_usage="Usage:\\textract [options] <path/to/compressed_file.extension>
+               [destination]\\n
+               \\textension can be <7z|bz2|deb|gz|lzma|rar|rpm|
+               \\btar|tar.bz2|tar.gz|tar.xz|tbz2|tgz|xz|zip>\\n
+               \\tOptions:\\n
+               \\t-v, --verbose : show output\\n
+               \\t-h, --help : display this information"
 
     # Parse command line options
     verbose=false
@@ -22,11 +22,11 @@ extract_usage="Usage:\textract [options] <path/to/compressed_file.extension>
                 verbose=true
                 ;;
             -h | --help )
-                echo -e $extract_usage
+                echo -e "$extract_usage"
                 return 0
                 ;;
             "" )
-                echo -e $extract_usage
+                echo -e "$extract_usage"
                 return 1
                 ;;
             * )
@@ -40,7 +40,7 @@ extract_usage="Usage:\textract [options] <path/to/compressed_file.extension>
     if [[ $# -eq 2 ]]; then
         compressed_file=$1
         # Strip trailing '/' but preserve '/' and './'
-        destination=$(echo $2 | sed '/.\{3\}/s/\/$//')
+        destination=$(echo "$2" | sed '/.\{3\}/s/\/$//')
     else
         compressed_file=$1
         destination=$(pwd)
@@ -51,32 +51,32 @@ extract_usage="Usage:\textract [options] <path/to/compressed_file.extension>
     if [[ -f "$compressed_file" ]]; then
         case $compressed_file in
             *.7z|*.deb|*.rpm )
-                extract_command="7z x -o"$destination" "$compressed_file""
+                extract_command="7z x -o\"$destination\" \"$compressed_file\""
+                ;;
+            *.tar|*.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz )
+                extract_command="tar xvf \"$compressed_file\" -C \"$destination\""
                 ;;
             *.bz2 )
                 # TODO add redirect to $destination/${compressed_file%.bz2}
-                extract_command="bunzip2 -v "$compressed_file""
-                ;;
-            *.tar|*.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz )
-                extract_command="tar xvf "$compressed_file" -C "$destination""
+                extract_command="bunzip2 -v \"$compressed_file\""
                 ;;
             *.gz )
                 # TODO add redirect to $destination/${compressed_file%.gz}
-                extract_command="gunzip -v "$compressed_file""
+                extract_command="gunzip -v \"$compressed_file\""
                 ;;
             *.lzma )
                 # TODO add redirect to $destination/${compressed_file%.lzma}
-                extract_command="unlzma -v "$compressed_file""
+                extract_command="unlzma -v \"$compressed_file\""
                 ;;
             *.rar )
-                extract_command="unrar -x "$compressed_file" "$destination""
+                extract_command="unrar -x \"$compressed_file\" \"$destination\""
                 ;;
             *.xz )
                 # TODO add redirect to $destination/${compressed_file%.xz}
-                extract_command="unxz -v "$compressed_file""
+                extract_command="unxz -v \"$compressed_file\""
                 ;;
             *.zip )
-                extract_command="unzip "$compressed_file" -d "$destination""
+                extract_command="unzip \"$compressed_file\" -d \"$destination\""
                 ;;
             * )
                 echo "Unknown compressed file type: '${compressed_file#*.}'"
@@ -90,13 +90,13 @@ extract_usage="Usage:\textract [options] <path/to/compressed_file.extension>
 
     # Perform extraction
     if [[ "$verbose" == true ]]; then
-        $extract_command
+        "$extract_command"
     else
-        $extract_command > /dev/null 2>&1
+        "$extract_command" > /dev/null 2>&1
     fi
 
     # Should we display full commands? See exports
     if [[ $SHOW_FULL_COMMAND == true ]]; then
-        echo -e "Completed action: \e[0;33m$extract_command\e[0m"
+        echo -e "Completed action: \\e[0;33m$extract_command\\e[0m"
     fi
 }
