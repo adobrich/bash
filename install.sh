@@ -61,7 +61,7 @@ process_bash_configs() {
     echo -e "$HEADER Processing 'bash configs' $NORMAL"
     config_files=(aliases bash_profile bash_prompt bashrc exports inputrc path)
     for file in "${config_files[@]}"; do
-        backup_file_if_exists "$HOME" ".${file}"
+        backup_if_exists "$HOME" ".${file}"
         create_symlink "$SOURCE_DIR/${file}" "$HOME" ".$file"
         # Source newly created files
         if [ "$file" == inputrc ]; then
@@ -75,7 +75,7 @@ process_bash_configs() {
 
 process_misc_configs() {
   echo -e "$HEADER Processing 'tmux config' $NORMAL"
-  backup_file_if_exists "$HOME" .tmux.conf
+  backup_if_exists "$HOME" .tmux.conf
   create_symlink "$SOURCE_DIR/tmux.conf" "$HOME" ".tmux.conf"
 }
 
@@ -89,7 +89,7 @@ process_nvim_configs() {
     # Array since I may break my vim file up into modules at some point
     config_files=(init.vim)
     for file in "${config_files[@]}"; do
-        backup_file_if_exists "$nvim_config_path" "$file"
+        backup_if_exists "$nvim_config_path" "$file"
         create_symlink "$SOURCE_DIR/config/nvim/${file}" "$nvim_config_path" "$file"
     done
     unset config_files
