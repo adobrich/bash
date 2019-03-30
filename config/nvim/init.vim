@@ -4,6 +4,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+  let g:LanguageClient_hasSnippetSupport = 0
   let g:LanguageClient_autoStart = 1
   let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
@@ -64,6 +65,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   " }
   " Vim-gitgutter - Show git diff info in gutter {
   Plug 'airblade/vim-gitgutter'
+    set signcolumn=yes
   " }
   " Vim-fugitive - git wrapper {
   Plug 'tpope/vim-fugitive'
@@ -89,12 +91,15 @@ call plug#begin('~/.local/share/nvim/plugged')
     let g:neomake_markdown_enabled_makers = []
     let g:neomake_elixir_enabled_makers = ['mix', 'credo']
   " }
-  " Vim-Closetag - automatically close tags for (x)HTML files
+  " Vim-Closetag - automatically close tags for (x)HTML files {
   Plug 'alvan/vim-closetag'
   let g:closetag_filenames = '*.html, *.xhtml, *.eex'
   " }
   " Paramount - Simple colorscheme {
   Plug 'owickstrom/vim-colors-paramount'
+  " }
+  " Base16 - colorscheme {
+  Plug 'chriskempson/base16-vim'
   " }
   " Nord - 16 colour colorscheme {
   Plug 'arcticicestudio/nord-vim'
@@ -119,8 +124,6 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'Shougo/echodoc.vim'
     let g:echodoc_enable_at_startup = 1
   " }
-  "Plug 'rust-lang/rust.vim'
-    "let g:autofmt_autosave = 1
 call plug#end()
 " }
 
