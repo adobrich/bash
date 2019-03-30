@@ -1,10 +1,11 @@
 " Vim Plug {
 call plug#begin('~/.local/share/nvim/plugged')
+  " Language Client {
   Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-  let g:LanguageClient_hasSnippetSupport = 0
+  let g:LanguageClient_hasSnippetSupport = 1
   let g:LanguageClient_autoStart = 1
   let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'nightly', 'rls'],
@@ -12,17 +13,16 @@ call plug#begin('~/.local/share/nvim/plugged')
     \ }
   noremap <silent> H :call LanguageClient_textDocument_hover()<CR>
   noremap <silent> Z :call LanguageClient_textDocument_definition()<CR>
-  noremap <silent> R :call LanguageClient_textDocument_rename()<CR>
+  noremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
   noremap <silent> S :call LanguageClient_textDocument_documentSymbol()<CR>
-
+  " }
   " Deoplete - completion manager {
-  " Possibly switch to neovim-completion-manager at some point?
   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
     let g:deoplete#auto_complete_delay = 0
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_smart_case = 1
     let g:deoplete#omni_patterns = {}
-    let g:deoplete#auto_completion_start_length = 1
+    let g:deoplete#auto_completion_start_length = 2
     let g:deoplete#file#enable_buffer_path = 1
     " Language sources
     " C/C++
@@ -62,6 +62,7 @@ call plug#begin('~/.local/share/nvim/plugged')
     smap <C-k> <Plug>(neosnippet_expand_or_jump)
     xmap <C-k> <Plug>(neosnippet_expand_target)
     let g:neosnippet#snippets_directory = '~/.local/share/nvim/plugged/vim-snippets'
+    let g:neosnippet#enable_complete_done = 1
   " }
   " Vim-gitgutter - Show git diff info in gutter {
   Plug 'airblade/vim-gitgutter'
@@ -77,7 +78,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'ntpeters/vim-better-whitespace'
     let g:better_whitespace_enabled = 1
   " }
-  " Vim-sandwich
+  " Vim-sandwich {
   Plug 'machakann/vim-sandwich'
   " }
   " Auto-pairs - Auto insert pairs {
@@ -158,25 +159,25 @@ set scrolloff=10
 " }
 
 " Look and feel {
-  if filereadable(expand("~/.vimrc_background"))
-    " Fix highlighting for spell checks in terminal
-    function! s:base16_customize() abort
-      " Colors: https://github.com/chriskempson/base16/blob/master/styling.md
-      " Arguments: group, guifg, guibg, ctermfg, ctermbg, attr, guisp
-      call Base16hi("SpellBad",   "", "", g:base16_cterm08, g:base16_cterm00, "", "")
-      call Base16hi("SpellCap",   "", "", g:base16_cterm0A, g:base16_cterm00, "", "")
-      call Base16hi("SpellLocal", "", "", g:base16_cterm0D, g:base16_cterm00, "", "")
-      call Base16hi("SpellRare",  "", "", g:base16_cterm0B, g:base16_cterm00, "", "")
-    endfunction
+if filereadable(expand("~/.vimrc_background"))
+  " Fix highlighting for spell checks in terminal
+  function! s:base16_customize() abort
+    " Colors: https://github.com/chriskempson/base16/blob/master/styling.md
+    " Arguments: group, guifg, guibg, ctermfg, ctermbg, attr, guisp
+    call Base16hi("SpellBad",   "", "", g:base16_cterm08, g:base16_cterm00, "", "")
+    call Base16hi("SpellCap",   "", "", g:base16_cterm0A, g:base16_cterm00, "", "")
+    call Base16hi("SpellLocal", "", "", g:base16_cterm0D, g:base16_cterm00, "", "")
+    call Base16hi("SpellRare",  "", "", g:base16_cterm0B, g:base16_cterm00, "", "")
+  endfunction
 
-    augroup on_change_colorschema
-      autocmd!
-      autocmd ColorScheme * call s:base16_customize()
-    augroup END
-    let base16colorspace=256
-    source ~/.vimrc_background
-  endif
-"colorscheme nord
+  augroup on_change_colorschema
+    autocmd!
+    autocmd ColorScheme * call s:base16_customize()
+  augroup END
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
 set background=dark
 set cursorline
 set cursorcolumn
@@ -187,6 +188,7 @@ let g:mapleader=" "
 map <silent><cr> :nohl<cr>
 map <silent><leader>e :Explore<cr>
 map <silent><leader>f :FZF<cr>
+map <F5> :setlocal spell! spelllang=en_au<CR>
 " }
 
 " Deoplete filters {
