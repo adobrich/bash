@@ -10,5 +10,7 @@ alias lsd='ls -la | grep --color=never ^d'
 # Colour grep
 alias grep='grep --color=auto'
 
-# vim: ft=sh ts=4 et sw=4:
+# Don't display snaps in df output
+alias df='df -x squashfs'
 
+# vim: ft=sh ts=4 et sw=4:

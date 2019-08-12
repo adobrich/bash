@@ -35,9 +35,12 @@ tmux start-server
 tmux new-session -d -s $session -n vim
 
 tmux selectp -t 1
-tmux send-keys "cd $working_dir;vim" C-m
+tmux send-keys "cd $working_dir; clear; vim" C-m
 
 tmux new-window -t "$session:2" -n "scratch"
+
+tmux select-window -t "$session:2"
+tmux send-keys "cd $working_dir; clear" C-m
 
 tmux select-window -t "$session:1"
 

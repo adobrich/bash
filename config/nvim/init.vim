@@ -18,7 +18,7 @@ call plug#begin('~/.local/share/nvim/plugged')
   " }
   " Deoplete - completion manager {
   Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-    let g:deoplete#auto_complete_delay = 0
+    let g:deoplete#auto_complete_delay = 1
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#enable_smart_case = 1
     let g:deoplete#omni_patterns = {}
@@ -51,8 +51,8 @@ call plug#begin('~/.local/share/nvim/plugged')
   Plug 'pbogut/deoplete-elm'
   Plug 'zchee/deoplete-jedi'
   "Plug 'racer-rust/vim-racer'
-    "let g:racer_cmd = expand('~/.cargo/bin/racer')
-    "let g:racer_experimental_completer = 1
+    let g:racer_cmd = expand('~/.cargo/bin/racer')
+    let g:racer_experimental_completer = 1
   Plug 'zchee/deoplete-go'
   " }
   " Neosnippets - Expandable snippets {
@@ -155,7 +155,7 @@ set title
 set clipboard=unnamedplus
 set cmdheight=2
 set spell spelllang=en_au
-set scrolloff=10
+set scrolloff=3
 " }
 
 " Look and feel {
