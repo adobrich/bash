@@ -1,6 +1,4 @@
 " Specify a directory for plugins
-" - For Neovim: ~/.local/share/nvim/plugged
-" - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -12,6 +10,8 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'machakann/vim-sandwich'
 
 Plug 'scrooloose/nerdcommenter'
+
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 
 Plug 'ntpeters/vim-better-whitespace'
     let g:better_whitespace_enabled = 1
@@ -29,7 +29,7 @@ set termguicolors
 colorscheme dracula
 highlight Normal ctermbg=None
 
-" Some servers have issues with backup files, see #649
+" Some servers have issues with backup files, see CoC #649
 set nobackup
 set nowritebackup
 
@@ -93,8 +93,8 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>m  <Plug>(coc-format-selected)
+nmap <leader>m  <Plug>(coc-format-selected)
 
 augroup mygroup
   autocmd!
@@ -158,6 +158,8 @@ augroup Smartf
   autocmd User SmartfEnter :hi Conceal ctermfg=220 guifg=#6638F0
   autocmd User SmartfLeave :hi Conceal ctermfg=239 guifg=#504945
 augroup end
+
+set clipboard=unnamedplus
 
 "" Vim Plug {
 "call plug#begin('~/.local/share/nvim/plugged')
@@ -354,7 +356,7 @@ set scrolloff=3
 let g:mapleader=" "
 map <silent><cr> :nohl<cr>
 "map <silent><leader>e :Explore<cr>
-"map <silent><leader>f :FZF<cr>
+map <silent><leader>f :FZF<cr>
 map <F5> :setlocal spell! spelllang=en_au<CR>
 "" }
 "
