@@ -9,7 +9,12 @@ Plug 'dracula/vim', {'as': 'dracula'}
 
 Plug 'rhysd/git-messenger.vim'
 
-Plug 'ciaranm/inkpot', {'as': 'inkpot'}
+Plug 'machakann/vim-sandwich'
+
+Plug 'scrooloose/nerdcommenter'
+
+Plug 'ntpeters/vim-better-whitespace'
+    let g:better_whitespace_enabled = 1
 
 " Initialize plugin system
 call plug#end()
@@ -293,18 +298,18 @@ augroup end
 "" }
 "
 "" General {
-"set foldmethod=marker
-"set foldmarker={,}
-"set foldlevel=0
+set foldmethod=marker
+set foldmarker={,}
+set foldlevel=0
 "syntax enable
-"set tabstop=2
-"set softtabstop=2
-"set expandtab
-"set shiftwidth=2
+set tabstop=2
+set softtabstop=2
+set expandtab
+set shiftwidth=2
 "set hidden
-"set number
+set number relativenumber
 "set relativenumber
-"set encoding=utf-8
+set encoding=utf-8
 "set hlsearch
 "set incsearch
 "set ignorecase
@@ -312,8 +317,8 @@ augroup end
 "set title
 "set clipboard=unnamedplus
 "set cmdheight=2
-"set spell spelllang=en_au
-"set scrolloff=3
+set spell spelllang=en_au
+set scrolloff=3
 "set updatetime=300
 "set shortmess+=c
 "set signcolumn=yes
@@ -346,11 +351,11 @@ augroup end
 "" }
 "
 "" Mappings {
-"let g:mapleader=" "
-"map <silent><cr> :nohl<cr>
+let g:mapleader=" "
+map <silent><cr> :nohl<cr>
 "map <silent><leader>e :Explore<cr>
 "map <silent><leader>f :FZF<cr>
-"map <F5> :setlocal spell! spelllang=en_au<CR>
+map <F5> :setlocal spell! spelllang=en_au<CR>
 "" }
 "
 "function! s:check_back_space() abort
